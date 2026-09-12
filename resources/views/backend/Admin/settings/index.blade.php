@@ -515,7 +515,7 @@
                                         <!-- Max Failed Logins -->
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold fs-13 text-dark">
-                                                Max Failed Login Attempts Before Lockout <span class="text-danger">*</span>
+                                                Max Failed Login Attempts <span class="text-danger">*</span>
                                             </label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light text-muted"><i class="bi bi-exclamation-octagon"></i></span>
@@ -523,6 +523,19 @@
                                                 <span class="input-group-text bg-light text-muted">attempts</span>
                                             </div>
                                             <small class="text-muted fs-11">Number of consecutive wrong password tries before temporary account lockout.</small>
+                                        </div>
+
+                                        <!-- Lockout Duration -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold fs-13 text-dark">
+                                                Account Lockout Duration <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light text-muted"><i class="bi bi-lock-fill"></i></span>
+                                                <input type="number" name="lockout_duration_minutes" class="form-control" min="1" max="1440" value="{{ old('lockout_duration_minutes', $settings['lockout_duration_minutes'] ?? '15') }}" required>
+                                                <span class="input-group-text bg-light text-muted">minutes</span>
+                                            </div>
+                                            <small class="text-muted fs-11">How long account stays locked after max failed attempts. Example: 15 = 15 minutes lockout.</small>
                                         </div>
                                     </div>
 

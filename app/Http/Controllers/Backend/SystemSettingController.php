@@ -167,6 +167,7 @@ class SystemSettingController extends Controller
                 'min_password_length' => 'required|integer|min:6|max:32',
                 'session_lifetime' => 'required|integer|min:15|max:1440',
                 'max_login_attempts' => 'required|integer|min:3|max:20',
+                'lockout_duration_minutes' => 'required|integer|min:1|max:1440',
             ]);
 
             SystemSetting::set('min_password_length', $request->input('min_password_length'), 'security');
@@ -175,6 +176,7 @@ class SystemSettingController extends Controller
             SystemSetting::set('pwd_require_special', $request->has('pwd_require_special') ? '1' : '0', 'security');
             SystemSetting::set('session_lifetime', $request->input('session_lifetime'), 'security');
             SystemSetting::set('max_login_attempts', $request->input('max_login_attempts'), 'security');
+            SystemSetting::set('lockout_duration_minutes', $request->input('lockout_duration_minutes'), 'security');
         }
 
         return redirect()->route('admin.settings.index', ['tab' => $group])

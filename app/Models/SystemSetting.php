@@ -54,6 +54,7 @@ class SystemSetting extends Model
         'pwd_require_special' => '0',
         'session_lifetime' => '120',
         'max_login_attempts' => '5',
+        'lockout_duration_minutes' => '15',   // minutes account stays locked after max failed attempts
     ];
 
     /**

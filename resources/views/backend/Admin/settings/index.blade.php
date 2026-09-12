@@ -496,7 +496,10 @@
                                                 <input type="number" name="min_password_length" class="form-control" min="6" max="32" value="{{ old('min_password_length', $settings['min_password_length'] ?? '8') }}" required>
                                                 <span class="input-group-text bg-light text-muted">characters</span>
                                             </div>
-                                            <small class="text-muted fs-11">Recommended minimum length: 8 characters (ISO/IEC 27001 standard).</small>
+                                            <small class="text-muted fs-11">
+                                                <i class="bi bi-check-circle-fill text-success me-1"></i>
+                                                <strong>Globally enforced</strong> — applies to all doctor, clinic & staff password changes across the portal.
+                                            </small>
                                         </div>
 
                                         <!-- Session Lifetime -->
@@ -511,7 +514,29 @@
                                             </div>
                                             <small class="text-muted fs-11">Auto logout user after period of inactivity (e.g. 120 mins).</small>
                                         </div>
+                                    </div>
 
+                                    <hr class="my-4 text-muted opacity-25">
+
+                                    <h6 class="fw-bold text-dark mb-3 fs-14 d-flex align-items-center">
+                                        <i class="bi bi-shield-exclamation text-danger me-2"></i> Login Lockout Policy
+                                    </h6>
+
+                                    {{-- Enable/Disable Lockout Toggle --}}
+                                    <div class="p-3 border rounded-3 bg-light-subtle d-flex align-items-center justify-content-between mb-3" id="lockout-toggle-card">
+                                        <div>
+                                            <div class="fw-semibold fs-13 text-dark">Enable Login Lockout</div>
+                                            <small class="text-muted fs-11">When ON: account is temporarily blocked after too many failed attempts. Turn OFF to allow unlimited tries.</small>
+                                        </div>
+                                        <div class="form-check form-switch fs-5 mb-0">
+                                            <input class="form-check-input" type="checkbox" id="lockout_enabled_toggle" name="lockout_enabled" value="1"
+                                                {{ ($settings['lockout_enabled'] ?? '1') == '1' ? 'checked' : '' }}
+                                                onchange="toggleLockoutFields(this.checked)">
+                                        </div>
+                                    </div>
+
+                                    {{-- Lockout Config Fields (hidden when lockout is disabled) --}}
+                                    <div class="row g-4 mb-4" id="lockout-fields" style="{{ ($settings['lockout_enabled'] ?? '1') != '1' ? 'display:none;' : '' }}">
                                         <!-- Max Failed Logins -->
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold fs-13 text-dark">
@@ -519,7 +544,7 @@
                                             </label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light text-muted"><i class="bi bi-exclamation-octagon"></i></span>
-                                                <input type="number" name="max_login_attempts" class="form-control" min="3" max="20" value="{{ old('max_login_attempts', $settings['max_login_attempts'] ?? '5') }}" required>
+                                                <input type="number" name="max_login_attempts" class="form-control" min="3" max="20" value="{{ old('max_login_attempts', $settings['max_login_attempts'] ?? '5') }}">
                                                 <span class="input-group-text bg-light text-muted">attempts</span>
                                             </div>
                                             <small class="text-muted fs-11">Number of consecutive wrong password tries before temporary account lockout.</small>
@@ -532,18 +557,12 @@
                                             </label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light text-muted"><i class="bi bi-lock-fill"></i></span>
-                                                <input type="number" name="lockout_duration_minutes" class="form-control" min="1" max="1440" value="{{ old('lockout_duration_minutes', $settings['lockout_duration_minutes'] ?? '15') }}" required>
+                                                <input type="number" name="lockout_duration_minutes" class="form-control" min="1" max="1440" value="{{ old('lockout_duration_minutes', $settings['lockout_duration_minutes'] ?? '15') }}">
                                                 <span class="input-group-text bg-light text-muted">minutes</span>
                                             </div>
-                                            <small class="text-muted fs-11">How long account stays locked after max failed attempts. Example: 15 = 15 minutes lockout.</small>
+                                            <small class="text-muted fs-11">How long account stays locked after max failed attempts (e.g. 15 = 15 minutes).</small>
                                         </div>
                                     </div>
-
-                                    <hr class="my-4 text-muted opacity-25">
-
-                                    <h6 class="fw-bold text-dark mb-3 fs-14 d-flex align-items-center">
-                                        <i class="bi bi-check-all text-primary me-2"></i> Password Complexity Rules
-                                    </h6>
 
                                     <div class="row g-3 mb-4">
                                         <!-- Uppercase Rule -->
@@ -738,6 +757,13 @@ function previewImage(input, previewId, placeholderId) {
             }
         }
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function toggleLockoutFields(enabled) {
+    const fields = document.getElementById('lockout-fields');
+    if (fields) {
+        fields.style.display = enabled ? '' : 'none';
     }
 }
 </script>

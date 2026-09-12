@@ -124,7 +124,7 @@ class onboardingController extends Controller
             'phone'                   => 'required|array|min:1',
             'phone.*'                 => 'required|digits:10|distinct',
             'password'                => 'required|array|min:1',
-            'password.*'              => 'required|string|min:6',
+            'password.*'              => ['required', 'string', \App\Models\SystemSetting::minPasswordRule()],
             'password_confirmation'   => 'required|array|min:1',
             'password_confirmation.*' => 'required|string',
         ], [
@@ -195,7 +195,7 @@ class onboardingController extends Controller
         if ($request->filled('password')) {
 
             $request->validate([
-                'password'               => 'required|string|min:6',
+                'password'               => ['required', 'string', \App\Models\SystemSetting::minPasswordRule()],
                 'password_confirmation'  => 'required|string',
             ]);
 

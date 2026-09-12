@@ -386,7 +386,7 @@ class ClinicPortalController extends Controller
 
         $request->validate([
             'current_password'      => 'required|string',
-            'password'              => 'required|string|min:6|confirmed',
+            'password'              => ['required', 'string', \App\Models\SystemSetting::minPasswordRule(), 'confirmed'],
         ]);
 
         if (!Hash::check($request->current_password, $clinic->password)) {
@@ -552,7 +552,7 @@ class ClinicPortalController extends Controller
         $request->validate([
             'name'      => ['required', 'string', 'max:255', 'regex:/^[\pL\s\.\'-]+$/u'],
             'email'     => 'required|email|unique:members,email',
-            'password'  => 'required|min:6|confirmed',
+            'password'  => ['required', \App\Models\SystemSetting::minPasswordRule(), 'confirmed'],
             'role'      => 'required|in:receptionist,staff',
             'doctor_id' => 'nullable|exists:doctors,id',
         ], [

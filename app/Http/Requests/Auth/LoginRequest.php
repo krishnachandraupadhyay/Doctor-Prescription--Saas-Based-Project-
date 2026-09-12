@@ -52,9 +52,11 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            // Hit the rate limiter with the configured lockout window
-            $lockoutSeconds = (int) SystemSetting::get('lockout_duration_minutes', 15) * 60;
-            RateLimiter::hit($this->throttleKey(), $lockoutSeconds);
+            // Only hit rate limiter if lockout is enabled
+            if (SystemSetting::get('lockout_enabled', '1') == '1') {
+                $lockoutSeconds = (int) SystemSetting::get('lockout_duration_minutes', 15) * 60;
+                RateLimiter::hit($this->throttleKey(), $lockoutSeconds);
+            }
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
@@ -71,6 +73,11 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
+        // If lockout is disabled globally, skip rate limiting entirely
+        if (SystemSetting::get('lockout_enabled', '1') != '1') {
+            return;
+        }
+
         $maxAttempts = (int) SystemSetting::get('max_login_attempts', 5);
 
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), $maxAttempts)) {

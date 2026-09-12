@@ -163,11 +163,13 @@ class SystemSettingController extends Controller
             SystemSetting::set('currency_code', $request->input('currency_code'), 'localization');
             SystemSetting::set('currency_position', $request->input('currency_position'), 'localization');
         } elseif ($group === 'security') {
+            $lockoutEnabled = $request->has('lockout_enabled') ? '1' : '0';
+
             $request->validate([
-                'min_password_length' => 'required|integer|min:6|max:32',
-                'session_lifetime' => 'required|integer|min:15|max:1440',
-                'max_login_attempts' => 'required|integer|min:3|max:20',
-                'lockout_duration_minutes' => 'required|integer|min:1|max:1440',
+                'min_password_length'      => 'required|integer|min:6|max:32',
+                'session_lifetime'         => 'required|integer|min:15|max:1440',
+                'max_login_attempts'       => $lockoutEnabled === '1' ? 'required|integer|min:3|max:20' : 'nullable|integer',
+                'lockout_duration_minutes' => $lockoutEnabled === '1' ? 'required|integer|min:1|max:1440' : 'nullable|integer',
             ]);
 
             SystemSetting::set('min_password_length', $request->input('min_password_length'), 'security');
@@ -175,8 +177,11 @@ class SystemSettingController extends Controller
             SystemSetting::set('pwd_require_number', $request->has('pwd_require_number') ? '1' : '0', 'security');
             SystemSetting::set('pwd_require_special', $request->has('pwd_require_special') ? '1' : '0', 'security');
             SystemSetting::set('session_lifetime', $request->input('session_lifetime'), 'security');
-            SystemSetting::set('max_login_attempts', $request->input('max_login_attempts'), 'security');
-            SystemSetting::set('lockout_duration_minutes', $request->input('lockout_duration_minutes'), 'security');
+            SystemSetting::set('lockout_enabled', $lockoutEnabled, 'security');
+            if ($lockoutEnabled === '1') {
+                SystemSetting::set('max_login_attempts', $request->input('max_login_attempts'), 'security');
+                SystemSetting::set('lockout_duration_minutes', $request->input('lockout_duration_minutes'), 'security');
+            }
         }
 
         return redirect()->route('admin.settings.index', ['tab' => $group])

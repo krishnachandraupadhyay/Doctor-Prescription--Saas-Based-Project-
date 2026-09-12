@@ -118,7 +118,7 @@ class ClinicController extends Controller
         $validatedData = $request->validate([
             'name'        => 'required|string|max:255',
             'email'       => 'required|email|unique:clinics,email',
-            'password'    => 'required|string|min:6',
+            'password'    => ['required', 'string', \App\Models\SystemSetting::minPasswordRule()],
             'phone'       => 'required|digits:10',
             'address'     => 'required|string|max:500',
             'clinic_code' => 'nullable|string|max:50',
@@ -180,7 +180,7 @@ class ClinicController extends Controller
             'phone'       => 'required|digits:10',
             'address'     => 'required|string|max:500',
             'clinic_code' => 'nullable|string|max:50',
-            'password'    => 'nullable|string|min:6',
+            'password'    => ['nullable', 'string', \App\Models\SystemSetting::minPasswordRule()],
         ], [
             'name.required'   => 'Clinic Name is required.',
             'email.required'  => 'Clinic Email is required.',

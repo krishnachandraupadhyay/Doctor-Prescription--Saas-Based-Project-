@@ -53,6 +53,7 @@ class SystemSetting extends Model
         'pwd_require_number' => '1',
         'pwd_require_special' => '0',
         'session_lifetime' => '120',
+        'lockout_enabled' => '1',             // 1 = lockout active, 0 = disabled
         'max_login_attempts' => '5',
         'lockout_duration_minutes' => '15',   // minutes account stays locked after max failed attempts
     ];
@@ -153,5 +154,15 @@ class SystemSetting extends Model
         }
 
         return $rules;
+    }
+
+    /**
+     * Get the minimum password length as a Laravel validation rule string.
+     * e.g. 'min:8'
+     */
+    public static function minPasswordRule(): string
+    {
+        $min = (int) self::get('min_password_length', 8);
+        return 'min:' . $min;
     }
 }

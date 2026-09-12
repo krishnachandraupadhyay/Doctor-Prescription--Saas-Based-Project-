@@ -314,7 +314,7 @@ class DoctorDashboardController extends Controller
 
         $request->validate([
             'current_password' => 'required_without:old_password',
-            'new_password'     => 'required|min:6|confirmed',
+            'new_password'     => ['required', \App\Models\SystemSetting::minPasswordRule(), 'confirmed'],
         ]);
 
         $doctor = Auth::guard('doctor')->user();

@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Clinic Management Console
+                    {{ \App\Models\SystemSetting::get('developed_by', 'Clinic Management Console') }}
                 </div>
             </div>
         </div>

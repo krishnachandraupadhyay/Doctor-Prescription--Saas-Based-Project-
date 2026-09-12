@@ -32,6 +32,7 @@ class SystemSetting extends Model
         'support_email' => 'support@docportal.com',
         'support_phone' => '+91 98765 43210',
         'footer_text' => 'Doctor Prescription & Clinical Management Suite.',
+        'developed_by' => 'Hospital & Clinical Administration.',
 
         // Appearance
         'theme_mode' => 'light',        // light, dark

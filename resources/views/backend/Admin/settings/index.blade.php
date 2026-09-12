@@ -169,10 +169,22 @@
                                             <small class="text-muted fs-11">Displayed on contact pages and doctor support modals.</small>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-md-6">
                                             <label class="form-label fw-semibold fs-13 text-dark">Footer Copyright Notice</label>
-                                            <textarea name="footer_text" class="form-control" rows="2" placeholder="Doctor Prescription Management Suite.">{{ old('footer_text', $settings['footer_text'] ?? '') }}</textarea>
-                                            <small class="text-muted fs-11">Appears at the bottom of all dashboard pages.</small>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light text-muted"><i class="bi bi-c-circle"></i></span>
+                                                <input type="text" name="footer_text" class="form-control" value="{{ old('footer_text', $settings['footer_text'] ?? 'Doctor Prescription & Clinical Management Suite.') }}" placeholder="Doctor Prescription & Clinical Management Suite.">
+                                            </div>
+                                            <small class="text-muted fs-11">Appears at bottom left of dashboard footer.</small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold fs-13 text-dark">Designed &amp; Developed By</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light text-muted"><i class="bi bi-code-slash"></i></span>
+                                                <input type="text" name="developed_by" class="form-control" value="{{ old('developed_by', $settings['developed_by'] ?? 'Hospital & Clinical Administration.') }}" placeholder="e.g. Designed & Developed by YourCompany">
+                                            </div>
+                                            <small class="text-muted fs-11">Appears at bottom right of dashboard (replaces 'Hospital &amp; Clinical Administration.').</small>
                                         </div>
                                     </div>
 

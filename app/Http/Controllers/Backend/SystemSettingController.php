@@ -85,6 +85,7 @@ class SystemSettingController extends Controller
                 'support_email' => 'nullable|email|max:150',
                 'support_phone' => 'nullable|string|max:50',
                 'footer_text' => 'nullable|string|max:300',
+                'developed_by' => 'nullable|string|max:300',
                 'system_logo' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
                 'system_favicon' => 'nullable|image|mimes:jpeg,png,jpg,ico,webp|max:1024',
             ]);
@@ -94,6 +95,7 @@ class SystemSettingController extends Controller
             SystemSetting::set('support_email', $request->input('support_email'), 'general');
             SystemSetting::set('support_phone', $request->input('support_phone'), 'general');
             SystemSetting::set('footer_text', $request->input('footer_text'), 'general');
+            SystemSetting::set('developed_by', $request->input('developed_by'), 'general');
 
             // Handle Logo Upload
             if ($request->hasFile('system_logo')) {

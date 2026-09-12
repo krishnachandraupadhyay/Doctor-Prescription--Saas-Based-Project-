@@ -265,12 +265,12 @@
                                         <div class="row g-3 mb-3">
                                             @foreach($presetThemes as $preset)
                                                 <div class="col-xl-3 col-sm-6">
-                                                    <div class="theme-preset-card p-2.5 border rounded-3 d-flex align-items-center gap-2.5 cursor-pointer {{ strtolower($settings['theme_color'] ?? '#0162e8') === strtolower($preset['color']) ? 'active' : '' }}"
+                                                    <div class="theme-preset-card border rounded-3 d-flex align-items-center cursor-pointer {{ strtolower($settings['theme_color'] ?? '#0162e8') === strtolower($preset['color']) ? 'active' : '' }}"
                                                          onclick="selectThemeColor('{{ $preset['color'] }}')">
-                                                        <span class="rounded-circle shadow-sm" style="width: 28px; height: 28px; background-color: {{ $preset['color'] }}; flex-shrink: 0;"></span>
+                                                        <span class="color-circle shadow-sm" style="background-color: {{ $preset['color'] }};"></span>
                                                         <div class="overflow-hidden">
                                                             <div class="fw-semibold fs-13 text-dark text-truncate">{{ $preset['name'] }}</div>
-                                                            <div class="text-muted fs-11">{{ $preset['color'] }}</div>
+                                                            <div class="text-muted fs-11 font-monospace">{{ $preset['color'] }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -583,7 +583,7 @@
 .modern-settings-nav .nav-link {
     background: transparent;
     border: 1px solid transparent;
-    padding: 11px 15px;
+    padding: 12px 16px !important;
     border-radius: 8px;
     transition: all 0.18s ease;
     text-align: left;
@@ -627,17 +627,29 @@
 
 /* Theme Preset Card */
 .theme-preset-card {
+    padding: 12px 14px !important;
+    gap: 12px !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    background-color: #ffffff;
     transition: all 0.2s ease;
-    border-color: #e2e8f0;
+}
+.theme-preset-card .color-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .theme-preset-card:hover {
-    border-color: #94a3b8;
+    border-color: #94a3b8 !important;
     background-color: #f8fafc;
+    transform: translateY(-1px);
 }
 .theme-preset-card.active {
     border-color: var(--valex-primary, #0162e8) !important;
     background-color: rgba(1, 98, 232, 0.05);
-    box-shadow: 0 0 0 2px rgba(1, 98, 232, 0.2);
+    box-shadow: 0 0 0 2px rgba(1, 98, 232, 0.25) !important;
 }
 
 /* Theme Mode Card */

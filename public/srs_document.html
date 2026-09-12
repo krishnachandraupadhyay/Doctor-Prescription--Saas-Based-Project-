@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Requirements Specification (SRS) - Clinic & Hospital SaaS Platform</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+            @top-right {
+                content: "ISO/IEC/IEEE 29148:2018 Compliant SRS";
+                font-size: 8pt;
+                color: #64748b;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            @bottom-right {
+                content: "Page " counter(page);
+                font-size: 8pt;
+                color: #64748b;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            @bottom-left {
+                content: "MediPortal Cloud SaaS • Confidential";
+                font-size: 8pt;
+                color: #64748b;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            font-size: 10.5pt;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cover-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            page-break-after: always;
+            border-left: 8px solid #2563eb;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 6px 16px;
+            font-size: 9pt;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+
+        .cover-title {
+            font-size: 28pt;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            margin: 0 0 12px 0;
+        }
+
+        .cover-subtitle {
+            font-size: 14pt;
+            font-weight: 400;
+            color: #475569;
+            margin: 0 0 30px 0;
+            line-height: 1.4;
+        }
+
+        .cover-meta {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            font-size: 9.5pt;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .meta-item strong {
+            display: block;
+            color: #64748b;
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .meta-item span {
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 10pt;
+        }
+
+        .cover-footer {
+            border-top: 1px solid #cbd5e1;
+            padding-top: 15px;
+            font-size: 8.5pt;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: #0f172a;
+            font-weight: 700;
+            page-break-after: avoid;
+        }
+
+        h1 {
+            font-size: 18pt;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 6px;
+            margin-top: 30px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h1::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 22px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+
+        h2 {
+            font-size: 14pt;
+            color: #1e3a8a;
+            border-left: 3px solid #3b82f6;
+            padding-left: 10px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 11.5pt;
+            color: #1e293b;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 0 0 14px 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 8pt;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 8pt;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .badge-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .badge-primary { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .badge-warning { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+        .badge-danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+        .badge-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+        .callout {
+            border-left: 4px solid #2563eb;
+            background: #eff6ff;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin: 14px 0;
+            font-size: 9.5pt;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .callout-warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+        .callout-warning .callout-title { color: #b45309; }
+
+        .callout-success {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .callout-success .callout-title { color: #065f46; }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dotted #cbd5e1;
+            font-size: 9.5pt;
+        }
+
+        .toc-item strong {
+            color: #0f172a;
+        }
+
+        .toc-num {
+            color: #2563eb;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .matrix-yes {
+            color: #16a34a;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .matrix-no {
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        .feature-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            page-break-inside: avoid;
+        }
+
+        .feature-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .feature-box-title {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .feature-box-code {
+            font-family: monospace;
+            font-size: 8pt;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div>
+            <div class="cover-badge">ISO/IEC/IEEE 29148:2018 Standard</div>
+            <div class="cover-title">Software Requirements Specification (SRS)</div>
+            <div class="cover-subtitle">Next-Gen Multi-Tenant Clinic &amp; Hospital SaaS Platform with Subscription Governance &amp; Intelligent Clinical Workflow Engine</div>
+        </div>
+
+        <div class="cover-meta">
+            <div class="meta-item">
+                <strong>Project Name</strong>
+                <span>MediPortal Cloud (Doctor Prescription &amp; Clinic Suite)</span>
+            </div>
+            <div class="meta-item">
+                <strong>Document Identifier</strong>
+                <span>SRS-MEDIPORTAL-ISO29148-V2.1</span>
+            </div>
+            <div class="meta-item">
+                <strong>Architecture Framework</strong>
+                <span>Multi-Tenant SaaS (Clinic-Centric Tenant Model)</span>
+            </div>
+            <div class="meta-item">
+                <strong>Core Technology Stack</strong>
+                <span>PHP 8.3 • Laravel 13.x • MySQL 8 • Bootstrap 5</span>
+            </div>
+            <div class="meta-item">
+                <strong>Document Status</strong>
+                <span><span class="badge badge-success">Approved for Client Evaluation</span></span>
+            </div>
+            <div class="meta-item">
+                <strong>Release Date</strong>
+                <span>September 2026</span>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <span>Prepared for: Stakeholders, Healthcare Networks, Clinic Directors, Investors</span>
+            <span>Document Revision: 2.1 • High Confidence</span>
+        </div>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="page-break"></div>
+    <h1>Table of Contents</h1>
+    <ul class="toc-list">
+        <li class="toc-item"><span><span class="toc-num">1.0</span><strong>Executive Summary &amp; Vision</strong></span><span>Page 3</span></li>
+        <li class="toc-item"><span><span class="toc-num">2.0</span><strong>Scope &amp; Compliance Standards (ISO/IEC/IEEE 29148:2018)</strong></span><span>Page 3</span></li>
+        <li class="toc-item"><span><span class="toc-num">3.0</span><strong>Overall Architecture &amp; User Classes</strong></span><span>Page 4</span></li>
+        <li class="toc-item"><span><span class="toc-num">4.0</span><strong>Clinic-Centric Multi-Tenant Subscription Architecture</strong></span><span>Page 5</span></li>
+        <li class="toc-item"><span><span class="toc-num">5.0</span><strong>Subscription Plans &amp; Quota Matrix</strong></span><span>Page 6</span></li>
+        <li class="toc-item"><span><span class="toc-num">6.0</span><strong>Feature Catalog &amp; Modular Access Control</strong></span><span>Page 7</span></li>
+        <li class="toc-item"><span><span class="toc-num">7.0</span><strong>Subscription-Based Login &amp; Session Security</strong></span><span>Page 8</span></li>
+        <li class="toc-item"><span><span class="toc-num">8.0</span><strong>Detailed Functional Requirements by Module</strong></span><span>Page 9</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.1 Super Admin &amp; SaaS Governance</strong><span>Page 9</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.2 Clinic / Hospital Administration Portal</span><span>Page 10</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.3 Doctor Portal &amp; Smart Prescription Engine</span><span>Page 11</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.4 Receptionist Desk &amp; OPD Queue Management</span><span>Page 12</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.5 Staff / Nursing Examination Desk</span><span>Page 13</span></li>
+        <li class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;8.6 Patient Revisit &amp; Follow-up Discount Policy</span><span>Page 13</span></li>
+        <li class="toc-item"><span><span class="toc-num">9.0</span><strong>Non-Functional Requirements (ISO/IEC 25010 Quality Model)</strong></span><span>Page 14</span></li>
+        <li class="toc-item"><span><span class="toc-num">10.0</span><strong>Data Model &amp; Entity Relationships</strong></span><span>Page 15</span></li>
+        <li class="toc-item"><span><span class="toc-num">11.0</span><strong>Acceptance Criteria &amp; Verification Protocols</strong></span><span>Page 15</span></li>
+    </ul>
+
+    <!-- SECTION 1 & 2 -->
+    <h1>1.0 Executive Summary &amp; Vision</h1>
+    <p>
+        <strong>MediPortal Cloud</strong> is an enterprise-grade, multi-tenant Medical Practice Management and Electronic Prescription SaaS platform. The software empowers outpatient clinics, polyclinics, nursing homes, and multi-specialty hospitals to streamline their clinical operations, digital prescription generation, OPD token queues, vitals tracking, staff administration, and billing.
+    </p>
+    <p>
+        The platform features an advanced <strong>Clinic-Centric Subscription Governance Engine</strong> that enforces strict plan-based feature provisioning, doctor quotas, staff capacities, and real-time session lockouts. Doctors and clinic staff inherit subscription rights automatically from their parent healthcare facility, providing clean organizational billing and security.
+    </p>
+
+    <h1>2.0 Scope &amp; Compliance Standards</h1>
+    <p>
+        This Software Requirements Specification (SRS) is structured in compliance with <strong>ISO/IEC/IEEE 29148:2018 (Systems and software engineering — Life cycle processes — Requirements engineering)</strong> and adheres to <strong>IEEE Std 830-1998</strong>.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Standard / Framework</th>
+                <th style="width: 35%;">Scope of Compliance</th>
+                <th style="width: 40%;">Implementation in System</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ISO/IEC/IEEE 29148:2018</strong></td>
+                <td>Requirement structure, completeness, verifiability, and traceability.</td>
+                <td>Systematic breakdown of functional, non-functional, and interface requirements.</td>
+            </tr>
+            <tr>
+                <td><strong>ISO/IEC 27001:2022</strong></td>
+                <td>Information Security Management System (ISMS) principles.</td>
+                <td>Role-Based Access Control (RBAC), password hashing via Bcrypt, HTTPS, CSRF shielding.</td>
+            </tr>
+            <tr>
+                <td><strong>DISHA &amp; HIPAA Guidelines</strong></td>
+                <td>Confidentiality and integrity of Electronic Health Records (EHR).</td>
+                <td>Tenant isolation, strict ownership bounds, audit trails on prescription &amp; correction requests.</td>
+            </tr>
+            <tr>
+                <td><strong>ISO/IEC 25010:2011</strong></td>
+                <td>Software Product Quality &amp; Evaluation Model.</td>
+                <td>Performance efficiency, sub-second prescription generation, usability, reliability.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 3 -->
+    <h1>3.0 Overall Architecture &amp; User Classes</h1>
+    <p>
+        The application is architected around a <strong>Role-Based Multi-Guard Authentication Matrix</strong>. Every actor operates within a strictly partitioned domain with automated subscription-aware middleware:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Actor / User Class</th>
+                <th>Authentication Guard</th>
+                <th>Primary Responsibilities &amp; Capabilities</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Super Administrator</strong></td>
+                <td><code>web</code> (role: admin)</td>
+                <td>Platform governance, SaaS plan creation, feature catalog editing, subscriber management, global metrics, clinic onboarding oversight.</td>
+            </tr>
+            <tr>
+                <td><strong>Onboarding Manager</strong></td>
+                <td><code>web</code> (role: onboarding)</td>
+                <td>Clinic credential verification, physical verification checklist, doctor approval, compliance document inspection.</td>
+            </tr>
+            <tr>
+                <td><strong>Clinic / Hospital Admin</strong></td>
+                <td><code>clinic</code></td>
+                <td>Practice operations, medical team onboarding (up to plan quota), staff hiring (up to plan quota), revisit rule configuration, payment categories, prescription branding.</td>
+            </tr>
+            <tr>
+                <td><strong>Consulting Doctor</strong></td>
+                <td><code>doctor</code></td>
+                <td>OPD consultations, digital prescription authoring, formulary lookup, drug interaction alerts, patient history inspection, PDF prescription download.</td>
+            </tr>
+            <tr>
+                <td><strong>Receptionist</strong></td>
+                <td><code>member</code> (role: receptionist)</td>
+                <td>Front desk patient registration, token generation, daily OPD queue ordering, revisit policy verification, fee receipt generation.</td>
+            </tr>
+            <tr>
+                <td><strong>Clinical Staff / Nurse</strong></td>
+                <td><code>member</code> (role: staff)</td>
+                <td>Patient triage, physical examinations, vitals recording (Blood Pressure, Pulse, Temperature, SpO2, Blood Sugar).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout">
+        <div class="callout-title">Architectural Principle: Clinic-Held Tenant Model</div>
+        Individual doctors and staff members <strong>do not purchase or maintain independent subscriptions</strong>. The Clinic/Hospital is the singular billable subscriber entity. When a Clinic's subscription plan is active, all doctors and staff mapped to that clinic inherit access rights seamlessly.
+    </div>
+
+    <!-- SECTION 4 & 5 -->
+    <h1>4.0 Clinic-Centric Multi-Tenant Subscription Architecture</h1>
+    <p>
+        The subscription engine enforces monetization, tiering, and operational capacities through four fundamental mechanisms:
+    </p>
+    <ul>
+        <li><strong>Automatic Hierarchy Resolution:</strong> The system identifies the calling context (Clinic, Doctor, or Staff) and dynamically traces it back to the parent Clinic instance.</li>
+        <li><strong>Ceiling Quotas (Hard Enforcement):</strong> Prevents resource allocation beyond the purchased tier (e.g. attempting to add a 3rd doctor when the plan allows 2).</li>
+        <li><strong>Feature Flag Provisioning:</strong> Entire functional modules (e.g., Revisit Rules, Staff Accounts) are toggle-gated; unpurchased modules are hidden from UI and blocked at the route level.</li>
+        <li><strong>Real-time Expiration Interceptors:</strong> Time-based validity checks run during login attempts and continuous session requests.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h1>5.0 Subscription Plans &amp; Quota Matrix</h1>
+    <p>
+        The platform comes pre-configured with four structured tiers engineered for different scales of healthcare facilities:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Plan Parameter</th>
+                <th>Clinic Free Trial</th>
+                <th>Clinic Starter</th>
+                <th>Clinic Professional</th>
+                <th>Clinic Enterprise</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Target Facility</strong></td>
+                <td>New Clinics / Pilots</td>
+                <td>Solo Practices &amp; Small Clinics</td>
+                <td>Polyclinics &amp; Nursing Homes</td>
+                <td>Hospitals &amp; Multi-Specialty</td>
+            </tr>
+            <tr>
+                <td><strong>Standard Pricing</strong></td>
+                <td>₹0.00 (14 Days)</td>
+                <td>₹999.00 / Month</td>
+                <td>₹1,999.00 / Month</td>
+                <td>₹3,999.00 / Month</td>
+            </tr>
+            <tr>
+                <td><strong>Doctor Capacity</strong></td>
+                <td><span class="badge badge-warning">Max 2 Doctors</span></td>
+                <td><span class="badge badge-warning">Max 2 Doctors</span></td>
+                <td><span class="badge badge-primary">Max 6 Doctors</span></td>
+                <td><span class="badge badge-success">Unlimited (-1)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Staff Capacity</strong></td>
+                <td><span class="badge badge-warning">Max 2 Staff</span></td>
+                <td><span class="badge badge-warning">Max 3 Staff</span></td>
+                <td><span class="badge badge-primary">Max 6 Staff</span></td>
+                <td><span class="badge badge-success">Unlimited (-1)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Monthly Patients</strong></td>
+                <td>150 Patients/Mo</td>
+                <td>500 Patients/Mo</td>
+                <td><span class="badge badge-success">Unlimited</span></td>
+                <td><span class="badge badge-success">Unlimited</span></td>
+            </tr>
+            <tr>
+                <td><strong>Monthly Prescriptions</strong></td>
+                <td>150 Rx/Mo</td>
+                <td>500 Rx/Mo</td>
+                <td><span class="badge badge-success">Unlimited</span></td>
+                <td><span class="badge badge-success">Unlimited</span></td>
+            </tr>
+            <tr>
+                <td><strong>Digital Prescriptions</strong></td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Patient Directory</strong></td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Vitals &amp; Physical Exam</strong></td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Custom Formulary</strong></td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Payment Categories</strong></td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Staff &amp; Receptionist Module</strong></td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Patient Revisit Rules</strong></td>
+                <td class="matrix-no">✖ Gated (Hidden)</td>
+                <td class="matrix-no">✖ Gated (Hidden)</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Prescription Branding</strong></td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Document Storage Vault</strong></td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+            <tr>
+                <td><strong>Analytics &amp; Revenue Reports</strong></td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-no">✖ Gated</td>
+                <td class="matrix-yes">✔ Included</td>
+                <td class="matrix-yes">✔ Included</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">Client-Specified Gating Rule</div>
+        If a plan does not include a feature (e.g. <code>revisit_rules</code> in Free Trial), the software automatically <strong>hides the section from the navigation sidebar, profile view, and front desk queue</strong>. Attempting to directly type the URL triggers an upgrade interception.
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 6 -->
+    <h1>6.0 Feature Catalog &amp; Modular Access Control</h1>
+    <p>
+        The platform defines 10 standardized, discrete feature identifiers that Super Admins can dynamically toggle for any subscription plan:
+    </p>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">1. Prescription Writing &amp; PDF Generation</span>
+            <span class="feature-box-code">prescriptions</span>
+        </div>
+        <p>Enables doctor consultation desk, smart drug search, dosage calculator, advice snippets, and printable high-definition PDF prescriptions with QR code verification.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">2. Patient Management &amp; Medical History</span>
+            <span class="feature-box-code">patients</span>
+        </div>
+        <p>Demographic record storage, past visit tracking, symptom archives, and multi-doctor patient history timeline.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">3. Vitals &amp; Physical Examination Tracking</span>
+            <span class="feature-box-code">vitals_exam</span>
+        </div>
+        <p>Pre-consultation triage module allowing nursing staff to log Blood Pressure, Pulse Rate, Temperature, SpO2, and Random Blood Sugar.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">4. Custom Medicine &amp; Formulary Master</span>
+            <span class="feature-box-code">medicines_master</span>
+        </div>
+        <p>Custom pharmacology catalog management allowing clinics to create proprietary brand names, generic formulations, default dosages, and intake instructions.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">5. Staff &amp; Receptionist Accounts</span>
+            <span class="feature-box-code">staff_management</span>
+        </div>
+        <p>Dedicated role-separated logins for front desk receptionists and clinical support staff. Governed by <code>max_staff</code> quota ceiling.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">6. Consultation Fees &amp; Payment Categories</span>
+            <span class="feature-box-code">payment_categories</span>
+        </div>
+        <p>Custom fee category creation (General OPD, Emergency, Specialist Consultation, Procedure Fees) and price configuration.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">7. Patient Revisit Rules &amp; Discounts</span>
+            <span class="feature-box-code">revisit_rules</span>
+        </div>
+        <p>Automated policy engine that recognizes returning patients within a clinic-defined window (e.g., 7 days) and automatically waives or discounts consultation fees.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">8. Clinic Branding &amp; Prescription Customization</span>
+            <span class="feature-box-code">custom_branding</span>
+        </div>
+        <p>Clinic letterhead upload, custom header/footer layout, doctor digital signature integration, clinic stamp, and custom prescription canvas design.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">9. Clinic &amp; Doctor Document Vault</span>
+            <span class="feature-box-code">document_storage</span>
+        </div>
+        <p>Digital repository for clinic registration certificates, medical board licenses, and compliance documents.</p>
+    </div>
+
+    <div class="feature-box">
+        <div class="feature-box-header">
+            <span class="feature-box-title">10. Practice Performance &amp; Analytics Reports</span>
+            <span class="feature-box-code">analytics_reports</span>
+        </div>
+        <p>Aggregated visual reporting on daily OPD trends, doctor consultation volumes, fee collection totals, and patient retention rates.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 7 -->
+    <h1>7.0 Subscription-Based Login &amp; Session Security</h1>
+    <p>
+        The security boundary guarantees that healthcare facilities cannot access the system after plan expiration. The enforcement operates on two distinct layers:
+    </p>
+
+    <h2>7.1 Pre-Authentication Gate (Login Controller)</h2>
+    <p>
+        When a user enters credentials on the central <code>/login</code> screen, the system executes the following strict verification sequence:
+    </p>
+    <ol>
+        <li><strong>Credential Validation:</strong> Hash verification via Bcrypt (cost 12).</li>
+        <li><strong>Account Status:</strong> Checks <code>isdeleted == 0</code> and <code>status == active</code>.</li>
+        <li><strong>Verification Check:</strong> Confirms the clinic and doctor/staff accounts are officially verified.</li>
+        <li><strong>Subscription Interception:</strong>
+            <ul>
+                <li><strong>For Clinic Admins:</strong> Executes <code>$clinic->currentSubscription()</code>. If expired, suspended, or missing, login is rejected with: <em>"Your clinic's subscription expired on DD Mon YYYY. Please renew your plan to log in."</em></li>
+                <li><strong>For Doctors:</strong> Traces the doctor's registered clinic. If the clinic subscription is inactive or expired, login is rejected with: <em>"Access Denied: Your clinic's ({Clinic Name}) subscription expired on DD Mon YYYY. Doctor login is disabled until renewed."</em></li>
+                <li><strong>For Receptionists &amp; Staff:</strong> Traces parent clinic hierarchy. If the clinic subscription is inactive or expired, login is rejected with: <em>"Access Denied: Your clinic's ({Clinic Name}) subscription expired on DD Mon YYYY. Staff login is disabled until renewed."</em></li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>7.2 Active Session Lockout (Middleware)</h2>
+    <p>
+        For active sessions already open when a subscription reaches its midnight expiration time:
+    </p>
+    <ul>
+        <li>The <code>CheckSubscriptionAccess</code> (alias: <code>subscription.active</code>) middleware executes on every protected HTTP request.</li>
+        <li>If <code>SubscriptionService::hasActiveSubscription()</code> returns false, the middleware immediately invalidates the active session (<code>Auth::logout()</code>), clears CSRF tokens, and redirects the user to <code>/login</code> with an explicit expiration notice.</li>
+    </ul>
+
+    <!-- SECTION 8 -->
+    <h1>8.0 Detailed Functional Requirements by Module</h1>
+
+    <h2>8.1 Super Admin &amp; SaaS Governance Module</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Req. ID</th>
+                <th style="width: 25%;">Feature Name</th>
+                <th style="width: 60%;">Detailed Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>REQ-ADM-01</strong></td>
+                <td>SaaS Plan Builder</td>
+                <td>Super Admin shall be able to create, edit, activate, and deactivate subscription tiers with custom pricing, billing frequencies (Monthly/Yearly), trial days, and custom feature sets.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-ADM-02</strong></td>
+                <td>Quota Assignment</td>
+                <td>Super Admin shall configure numeric quotas for each plan: <code>max_doctors</code>, <code>max_staff</code>, <code>max_patients_per_month</code>, and <code>max_prescriptions_per_month</code>. Value <code>-1</code> represents unlimited capacity.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-ADM-03</strong></td>
+                <td>Subscribers Directory</td>
+                <td>Super Admin shall view all subscribed clinics in a clean tabular view displaying Clinic Name/ID, Current Plan, Validity Period, Days Left, and Real-time Status badges.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-ADM-04</strong></td>
+                <td>Subscription Extension</td>
+                <td>Super Admin shall be able to instantly extend any clinic's subscription validity by +30 Days, +90 Days, or +365 Days via a quick dropdown action.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-ADM-05</strong></td>
+                <td>Status Override</td>
+                <td>Super Admin shall be able to manually suspend, activate, or terminate any clinic subscription.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>8.2 Clinic / Hospital Administration Portal</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Req. ID</th>
+                <th style="width: 25%;">Feature Name</th>
+                <th style="width: 60%;">Detailed Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>REQ-CLN-01</strong></td>
+                <td>Doctor Management with Quota Ceiling</td>
+                <td>Clinic Admin shall register consulting doctors. The system shall evaluate <code>canAddDoctor()</code> against the plan's <code>max_doctors</code> quota. If capacity is full, the Add button is disabled and submission blocked.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-CLN-02</strong></td>
+                <td>Staff Management with Quota Ceiling</td>
+                <td>Clinic Admin shall manage Receptionists and Nurses. If plan feature <code>staff_management</code> is disabled, the module is hidden. If feature is enabled, capacity is capped at <code>max_staff</code>.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-CLN-03</strong></td>
+                <td>Revisit Policy Engine</td>
+                <td>Clinic Admin shall configure patient revisit rules: Revisit Window (e.g. 7 days) and Fee Type (Free ₹0 or Custom Discount). Gated behind <code>revisit_rules</code> feature.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-CLN-04</strong></td>
+                <td>Prescription Design &amp; Letterhead</td>
+                <td>Clinic Admin shall upload logo, digital signature, header/footer assets. Gated behind <code>custom_branding</code> feature.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-CLN-05</strong></td>
+                <td>Doctor Correction Requests</td>
+                <td>Clinic Admin shall review, approve, or reject profile correction requests submitted by doctors (qualification updates, license updates).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>8.3 Doctor Portal &amp; Smart Prescription Engine</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Req. ID</th>
+                <th style="width: 25%;">Feature Name</th>
+                <th style="width: 60%;">Detailed Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>REQ-DOC-01</strong></td>
+                <td>Smart Prescription Generator</td>
+                <td>Doctor shall author prescriptions with dynamic drug auto-complete, dosage guidelines (e.g. 1-0-1), administration intervals, duration (Days/Weeks), and special advice.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-DOC-02</strong></td>
+                <td>Chief Complaints &amp; Diagnosis</td>
+                <td>Doctor shall log patient symptoms, diagnosis tags, and clinical observations from a standardized master catalog.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-DOC-03</strong></td>
+                <td>Patient History Timeline</td>
+                <td>Doctor shall view complete chronological visit history, previous prescriptions, and recorded vitals of any patient registered under the clinic.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-DOC-04</strong></td>
+                <td>High-Definition PDF Export</td>
+                <td>Doctor shall download printable PDF prescriptions with doctor license, clinic letterhead branding, patient ID, diagnosis, Rx items, and digital signature.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>8.4 Receptionist Desk &amp; OPD Queue Management</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Req. ID</th>
+                <th style="width: 25%;">Feature Name</th>
+                <th style="width: 60%;">Detailed Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>REQ-REC-01</strong></td>
+                <td>Patient Registration &amp; Lookup</td>
+                <td>Receptionist shall register new walk-in patients or search existing patients by Phone, Name, or Patient ID.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-REC-02</strong></td>
+                <td>Daily OPD Queue</td>
+                <td>Receptionist shall allocate patients to specific consulting doctors, generating today's consultation queue tokens.</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-REC-03</strong></td>
+                <td>Revisit Policy Automation</td>
+                <td>When registering a returning patient, the system checks if previous visit was within the clinic's revisit window. If valid, it automatically flags the visit as <em>"Free Revisit"</em>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>8.5 Staff / Nursing Examination Desk</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Req. ID</th>
+                <th style="width: 25%;">Feature Name</th>
+                <th style="width: 60%;">Detailed Requirement Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>REQ-STF-01</strong></td>
+                <td>Triage Vitals Entry</td>
+                <td>Clinical staff shall record pre-consultation vitals: Blood Pressure (Systolic/Diastolic), Pulse Rate (bpm), Body Temperature (°F), SpO2 (%), and Blood Sugar (mg/dL).</td>
+            </tr>
+            <tr>
+                <td><strong>REQ-STF-02</strong></td>
+                <td>Doctor Sync</td>
+                <td>Recorded vitals shall reflect instantaneously in the doctor's consultation dashboard for that patient's visit.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SECTION 9 -->
+    <h1>9.0 Non-Functional Requirements (ISO/IEC 25010 Quality Model)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Quality Characteristic</th>
+                <th style="width: 75%;">Measurable Metric &amp; Architectural Implementation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Performance Efficiency</strong></td>
+                <td>
+                    • Prescription generation rendering time shall be <strong>&lt; 500 milliseconds</strong>.<br>
+                    • Database queries optimized with compound indices on <code>clinic_id</code>, <code>doctor_id</code>, and <code>patient_id</code>.<br>
+                    • High-throughput PDF rendering via optimized headless engines.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Security &amp; Confidentiality</strong></td>
+                <td>
+                    • Bcrypt password hashing algorithm with individual salting.<br>
+                    • Cross-Site Request Forgery (CSRF) protection on 100% of modifying HTTP requests.<br>
+                    • SQL injection immunity guaranteed via Eloquent ORM parameterized queries.<br>
+                    • Cross-Site Scripting (XSS) auto-escaping across all Blade template variables.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Reliability &amp; Availability</strong></td>
+                <td>
+                    • 99.9% target operational availability.<br>
+                    • Session invalidation and graceful fallback on subscription expiry without data loss.<br>
+                    • Soft delete protection (<code>isdeleted</code>) preventing accidental permanent record loss.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Usability &amp; UX</strong></td>
+                <td>
+                    • Clean, high-contrast Valex medical dashboard aesthetic.<br>
+                    • Color-coded KPI counters for immediate operational visibility.<br>
+                    • Mobile, tablet, and widescreen responsive layouts.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SECTION 10 & 11 -->
+    <h1>10.0 Entity Relationship Model Overview</h1>
+    <p>
+        The data model is structured around a central <code>clinics</code> table holding 1-to-N relationships with <code>doctors</code>, <code>members</code> (staff), <code>patients</code>, <code>subscriptions</code>, and <code>payment_categories</code>. Subscriptions bind to <code>subscription_plans</code>, which dynamically aggregate records from the <code>subscription_features</code> master catalog.
+    </p>
+
+    <h1>11.0 Acceptance Criteria &amp; Verification Sign-off</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Test Case ID</th>
+                <th>Validation Protocol</th>
+                <th>Expected Outcome</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>TC-SUB-01</strong></td>
+                <td>Clinic with active subscription attempts login.</td>
+                <td>Login succeeds; redirects to <code>clinic.dashboard</code>.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-SUB-02</strong></td>
+                <td>Clinic with expired subscription attempts login.</td>
+                <td>Login rejected; error shows exact expiry date with renewal advice.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-SUB-03</strong></td>
+                <td>Doctor belonging to active clinic attempts login.</td>
+                <td>Login succeeds; inherits active clinic plan.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-SUB-04</strong></td>
+                <td>Doctor belonging to expired clinic attempts login.</td>
+                <td>Login blocked with notice that clinic subscription has expired.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-SUB-05</strong></td>
+                <td>Clinic reaches <code>max_doctors</code> quota limit.</td>
+                <td>Add Doctor button locks; controller rejects creation with quota alert.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+            <tr>
+                <td><strong>TC-SUB-06</strong></td>
+                <td>Clinic plan lacks <code>revisit_rules</code> feature.</td>
+                <td>Revisit menu completely hidden; route access safely intercepted.</td>
+                <td><span class="badge badge-success">Passed</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-success" style="margin-top: 30px;">
+        <div class="callout-title">Document Sign-off &amp; Delivery Statement</div>
+        This document represents the official Software Requirements Specification (SRS) for the MediPortal Cloud SaaS Platform. It provides clients, stakeholders, and implementation teams with complete architectural clarity, subscription policies, and functional specifications under international standards.
+    </div>
+
+</body>
+</html>

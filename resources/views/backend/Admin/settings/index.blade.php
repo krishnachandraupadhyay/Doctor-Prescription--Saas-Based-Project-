@@ -480,7 +480,7 @@
                                 </h5>
                                 <p class="text-muted fs-12 mb-0 mt-1">Enforce password strength, session expiration timers, and lockout thresholds</p>
                             </div>
-                            <div class="card-body p-4">
+                            <div class="card-body p-4 pb-5">
                                 <form action="{{ route('admin.settings.update') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="group" value="security">
@@ -623,6 +623,12 @@
 </div>
 
 <style>
+/* Raise the back-to-top button so it never covers form content */
+#back-to-top {
+    bottom: 72px !important;
+    right: 24px !important;
+}
+
 /* Sleek Modern Settings Navigation (Stripe / Linear Style) */
 .modern-settings-nav .nav-link {
     background: transparent;

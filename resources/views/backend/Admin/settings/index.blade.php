@@ -67,40 +67,28 @@
                             <!-- TAB 1: GENERAL & IDENTITY -->
                             <button class="nav-link text-start d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 {{ $activeTab === 'general' ? 'active' : '' }}" 
                                     id="v-pills-general-tab" data-bs-toggle="pill" data-bs-target="#v-pills-general" type="button" role="tab" aria-controls="v-pills-general" aria-selected="{{ $activeTab === 'general' ? 'true' : 'false' }}">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <div class="nav-title">General &amp; Identity</div>
-                                    <div class="nav-subtitle">Name, branding &amp; support info</div>
-                                </div>
+                                <span class="nav-title">General &amp; Identity</span>
                                 <i class="bi bi-chevron-right nav-arrow fs-12 ms-2 flex-shrink-0"></i>
                             </button>
 
                             <!-- TAB 2: THEME & APPEARANCE -->
                             <button class="nav-link text-start d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 {{ $activeTab === 'appearance' ? 'active' : '' }}" 
                                     id="v-pills-appearance-tab" data-bs-toggle="pill" data-bs-target="#v-pills-appearance" type="button" role="tab" aria-controls="v-pills-appearance" aria-selected="{{ $activeTab === 'appearance' ? 'true' : 'false' }}">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <div class="nav-title">Theme &amp; Colors</div>
-                                    <div class="nav-subtitle">Accent color, dark/light mode</div>
-                                </div>
+                                <span class="nav-title">Theme &amp; Colors</span>
                                 <i class="bi bi-chevron-right nav-arrow fs-12 ms-2 flex-shrink-0"></i>
                             </button>
 
                             <!-- TAB 3: LOCALIZATION -->
                             <button class="nav-link text-start d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 {{ $activeTab === 'localization' ? 'active' : '' }}" 
                                     id="v-pills-localization-tab" data-bs-toggle="pill" data-bs-target="#v-pills-localization" type="button" role="tab" aria-controls="v-pills-localization" aria-selected="{{ $activeTab === 'localization' ? 'true' : 'false' }}">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <div class="nav-title">Localization</div>
-                                    <div class="nav-subtitle">Timezone, date &amp; currency</div>
-                                </div>
+                                <span class="nav-title">Localization</span>
                                 <i class="bi bi-chevron-right nav-arrow fs-12 ms-2 flex-shrink-0"></i>
                             </button>
 
                             <!-- TAB 4: PASSWORD & SECURITY -->
                             <button class="nav-link text-start d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 {{ $activeTab === 'security' ? 'active' : '' }}" 
                                     id="v-pills-security-tab" data-bs-toggle="pill" data-bs-target="#v-pills-security" type="button" role="tab" aria-controls="v-pills-security" aria-selected="{{ $activeTab === 'security' ? 'true' : 'false' }}">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <div class="nav-title">Password &amp; Security</div>
-                                    <div class="nav-subtitle">Password rules &amp; session limits</div>
-                                </div>
+                                <span class="nav-title">Password &amp; Security</span>
                                 <i class="bi bi-chevron-right nav-arrow fs-12 ms-2 flex-shrink-0"></i>
                             </button>
 
@@ -611,20 +599,13 @@
 
 .modern-settings-nav .nav-link .nav-title {
     font-size: 13.5px;
-    font-weight: 600;
-    color: #1e293b;
-    line-height: 1.25;
-    transition: color 0.18s ease;
-}
-.modern-settings-nav .nav-link .nav-subtitle {
-    font-size: 11.5px;
-    color: #94a3b8;
-    line-height: 1.2;
-    margin-top: 2px;
+    font-weight: 500;
+    color: #334155;
+    line-height: 1.4;
     transition: color 0.18s ease;
 }
 .modern-settings-nav .nav-link .nav-arrow {
-    color: #cbd5e1;
+    color: #94a3b8;
     transition: all 0.18s ease;
 }
 
@@ -638,10 +619,6 @@
 .modern-settings-nav .nav-link.active .nav-title {
     color: var(--valex-primary, #0162e8) !important;
     font-weight: 700 !important;
-}
-.modern-settings-nav .nav-link.active .nav-subtitle {
-    color: #3b82f6 !important;
-    font-weight: 500;
 }
 .modern-settings-nav .nav-link.active .nav-arrow {
     color: var(--valex-primary, #0162e8) !important;
